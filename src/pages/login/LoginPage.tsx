@@ -13,7 +13,7 @@ import { Car } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { login, clearError } from "../../store/authSlice";
-import { mockLogin } from "../../services/mockApi";
+// import { mockLogin } from "../../services/mockApi";
 import { loginApi, setAuthToken } from "../../services/api";
 
 const LoginPage = () => {
@@ -22,8 +22,6 @@ const LoginPage = () => {
   const { isAuthenticated, loading, error } = useAppSelector(
     (state) => state.auth
   );
-
-  console.log(isAuthenticated, loading, error);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,15 +41,7 @@ const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try {
-      const response = await loginApi({ email, password });
-
-      console.log(response);
-      setAuthToken(response.accessToken);
-      dispatch(login.fulfilled(response, "", { email, password }));
-    } catch (error: any) {
-      dispatch(login.rejected(null, "", { email, password }, error.message));
-    }
+    await dispatch(login({ email, password }));
   };
 
   const isFormValid = email.trim() !== "" && password.trim() !== "";
@@ -106,7 +96,7 @@ const LoginPage = () => {
               color="text.secondary"
               textAlign="center"
             >
-              Search vehicle details by a VIN or a plate number
+              Search vehicle details by a VIN or a plate number **with State**
             </Typography>
           </Box>
 

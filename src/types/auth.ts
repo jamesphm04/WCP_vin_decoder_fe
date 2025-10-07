@@ -5,18 +5,10 @@ export interface LoginCredentials {
 
 export interface AuthResponse {
   accessToken: string;
-  user: {
-    email: string;
-    name: string;
-  };
 }
 
 export interface AuthState {
   isAuthenticated: boolean;
-  user: {
-    email: string;
-    name: string;
-  } | null;
   token: string | null;
   loading: boolean;
   error: string | null;

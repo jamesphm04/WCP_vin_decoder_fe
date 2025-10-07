@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppDispatch } from "../store/hooks";
 import { logout } from "../store/authSlice";
 
 interface LayoutProps {
@@ -18,7 +18,6 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -35,33 +34,24 @@ const Layout = ({ children }: LayoutProps) => {
           >
             WCP Vehicle Search
           </Typography>
-          {user && (
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              <Typography
-                variant="body2"
-                sx={{ display: { xs: "none", sm: "block" } }}
-              >
-                {user.name}
-              </Typography>
-              <Button
-                color="inherit"
-                onClick={handleLogout}
-                startIcon={<LogOut size={18} />}
-                sx={{ textTransform: "none" }}
-              >
-                Logout
-              </Button>
-            </Box>
-          )}
+          <Button
+            color="inherit"
+            onClick={handleLogout}
+            startIcon={<LogOut size={18} />}
+            sx={{ textTransform: "none" }}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <Container
-        maxWidth="xl"
+        maxWidth={false}
+        disableGutters
         sx={{
           flexGrow: 1,
-          py: 4,
-          display: "flex",
-          flexDirection: "column",
+          py: 2,
+          px: 4,
+          width: "100vw",
         }}
       >
         {children}

@@ -1,6 +1,13 @@
 import axios, { AxiosInstance } from "axios";
 import { LoginCredentials, AuthResponse } from "../types/auth";
-import { Vehicle, SearchParams } from "../types/vehicle";
+import { Vehicle } from "../types/vehicle";
+
+// handle 401 globally
+let onUnauthorized: (() => void) | null = null;
+
+export const setUnauthorizedHandler = (callback: () => void) => {
+  onUnauthorized = callback;
+};
 
 const API_URL = "http://localhost:3000/api/v1";
 
@@ -13,17 +20,26 @@ const axiosInstance: AxiosInstance = axios.create({
 
 export const setAuthToken = (token: string | null) => {
   if (token) {
+    sessionStorage.setItem("authToken", token);
     axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   } else {
     delete axiosInstance.defaults.headers.common["Authorization"];
   }
 };
 
+export const initializeAuth = () => {
+  const token = sessionStorage.getItem("authToken");
+  if (token) {
+    setAuthToken(token);
+  }
+  return token;
+};
+
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status == 401) {
-      window.location.href = "/login";
+      onUnauthorized?.();
     }
     return Promise.reject(error);
   }
@@ -42,10 +58,18 @@ export const loginApi = async (
   return response.data;
 };
 
-export const searchVehiclesApi = async (
-  params: SearchParams
+export const searchByVINApi = async (vin: string): Promise<Vehicle[]> => {
+  const response = await axiosInstance.get(`/vehicles/search/vin/${vin}`);
+  return response.data;
+};
+
+export const searchByPlateAndStateApi = async (
+  plate: string,
+  state: string
 ): Promise<Vehicle[]> => {
-  const response = await axiosInstance.post("/search", params);
+  const response = await axiosInstance.get(
+    `/vehicles/search/plate/${plate}/${state}`
+  );
   return response.data;
 };
 

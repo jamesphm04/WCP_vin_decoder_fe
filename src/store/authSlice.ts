@@ -1,10 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState, LoginCredentials, AuthResponse } from "../types/auth";
-import { loginApi } from "../services/api";
+import { loginApi, setAuthToken } from "../services/api";
 
 const initialState: AuthState = {
   isAuthenticated: false,
-  user: null,
   token: null,
   loading: false,
   error: null,
@@ -28,12 +27,18 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.isAuthenticated = false;
-      state.user = null;
       state.token = null;
       state.error = null;
+      // Clear token from storage and axios
+      setAuthToken(null);
+      sessionStorage.removeItem("authToken");
     },
     clearError: (state) => {
       state.error = null;
+    },
+    restoreAuth: (state, action: PayloadAction<{ token: string }>) => {
+      state.isAuthenticated = true;
+      state.token = action.payload.token;
     },
   },
   extraReducers: (builder) => {
@@ -45,10 +50,8 @@ const authSlice = createSlice({
       .addCase(
         login.fulfilled,
         (state, action: PayloadAction<AuthResponse>) => {
-          console.log("Action", action);
           state.loading = false;
           state.isAuthenticated = true;
-          state.user = action.payload.user;
           state.token = action.payload.accessToken;
           state.error = null;
         }
@@ -61,5 +64,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, clearError } = authSlice.actions;
+export const { logout, clearError, restoreAuth } = authSlice.actions;
 export default authSlice.reducer;
