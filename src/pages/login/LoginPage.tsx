@@ -105,29 +105,6 @@ const LoginPage = () => {
               {error}
             </Alert>
           )}
-
-          <Box
-            sx={{
-              mb: 3,
-              p: 2,
-              bgcolor: "#e3f2fd",
-              borderRadius: 1,
-              border: "1px solid #90caf9",
-            }}
-          >
-            <Typography
-              variant="caption"
-              display="block"
-              fontWeight={600}
-              gutterBottom
-            >
-              Demo Credentials:
-            </Typography>
-            <Typography variant="caption" display="block">
-              sales@wholesalecarparts.com.au / sales1234
-            </Typography>
-          </Box>
-
           <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
