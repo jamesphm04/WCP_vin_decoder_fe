@@ -73,7 +73,7 @@ const SearchPage = () => {
     combinedLitre100km: "Combined L/100km",
     co2CombinedGramKm: "CO₂ Combined (g/km)",
     year: "Year",
-    capType: "Cap Type",
+    cabType: "Cab Type",
     engine: "Engine",
     turbo: "Turbo",
   };
@@ -83,7 +83,7 @@ const SearchPage = () => {
     "vin",
     "year",
     "series",
-    "capType",
+    "cabType",
     "grade",
     "engine",
     "turbo",
