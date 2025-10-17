@@ -2,6 +2,7 @@ export interface Vehicle {
   model: string | null;
   vin: string | null;
   year: string | null;
+  compliancePlate: string | null;
   series: string | null;
   capType: string | null;
   grade: string | null;

@@ -76,12 +76,14 @@ const SearchPage = () => {
     cabType: "Cab Type",
     engine: "Engine",
     turbo: "Turbo",
+    compliancePlate: "Compliance Plate",
   };
 
   const displayOrder = [
     "model",
     "vin",
     "year",
+    "compliancePlate",
     "series",
     "cabType",
     "grade",
