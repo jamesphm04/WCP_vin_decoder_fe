@@ -9,6 +9,7 @@ export interface Vehicle {
   engine: string | null;
   turbo: string | null;
   powerKW: string | null;
+  ktype: string | null;
   transmission: string | null;
   drivetrain: string | null;
   seats: string | null;

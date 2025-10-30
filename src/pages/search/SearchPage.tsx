@@ -18,11 +18,12 @@ import {
   clearError,
 } from "../../store/searchSlice";
 import Layout from "../../components/Layout";
+import WCPChatbot from "../../components/WCPChatbot";
 
 const SearchPage = () => {
   const dispatch = useAppDispatch();
   const { results, loading, error } = useAppSelector((state) => state.search);
-  console.log("Search State:", { results, loading, error });
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const [vin, setVin] = useState("");
   const [plate, setPlate] = useState("");
   const [state, setState] = useState("");
@@ -77,6 +78,7 @@ const SearchPage = () => {
     engine: "Engine",
     turbo: "Turbo",
     compliancePlate: "Compliance Plate",
+    ktype: "K-Type",
   };
 
   const displayOrder = [
@@ -90,6 +92,7 @@ const SearchPage = () => {
     "engine",
     "turbo",
     "powerKW",
+    "ktype",
     "transmission",
     "drivetrain",
     "seats",
@@ -113,6 +116,7 @@ const SearchPage = () => {
 
   return (
     <Layout>
+      {isAuthenticated && <WCPChatbot />}
       <Box sx={{ mx: "auto", width: "100%" }}>
         <Typography variant="h5" component="h1" fontWeight={600} gutterBottom>
           Vehicle Search
