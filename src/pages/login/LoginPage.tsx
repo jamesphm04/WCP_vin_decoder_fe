@@ -96,7 +96,7 @@ const LoginPage = () => {
               color="text.secondary"
               textAlign="center"
             >
-              Search vehicle details by a VIN or a plate number **with State**
+              Decode vehicle details by a VIN or a plate number **with State**
             </Typography>
           </Box>
 

@@ -32,7 +32,7 @@ const Layout = ({ children }: LayoutProps) => {
             component="div"
             sx={{ flexGrow: 1, fontWeight: 600 }}
           >
-            WCP Vehicle Search
+            WCP Vehicle Decoder Tool
           </Typography>
           <Button
             color="inherit"

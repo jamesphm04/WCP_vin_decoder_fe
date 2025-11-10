@@ -119,10 +119,10 @@ const SearchPage = () => {
       {isAuthenticated && <WCPChatbot />}
       <Box sx={{ mx: "auto", width: "100%" }}>
         <Typography variant="h5" component="h1" fontWeight={600} gutterBottom>
-          Vehicle Search
+          Decode Vehicle
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
-          Search vehicle details by a VIN or a plate number **with State**
+          Decode vehicle details by a VIN or a plate number **with State**
         </Typography>
 
         <Paper sx={{ p: 2, mb: 2 }}>
@@ -138,7 +138,11 @@ const SearchPage = () => {
               <TextField
                 label="VIN"
                 value={vin}
-                onChange={(e) => setVin(e.target.value)}
+                onChange={(e) => setVin(e.target.value)}  
+                onFocus={() => {
+                  setPlate("");
+                  setState("");
+                }}
                 disabled={loading}
                 placeholder="e.g., MNALSAE107W707518"
               />
@@ -147,12 +151,19 @@ const SearchPage = () => {
                 label="Plate Number"
                 value={plate}
                 onChange={(e) => setPlate(e.target.value)}
+                onFocus={() => {
+                  setVin("");
+                  setState("");
+                }}
                 disabled={loading}
                 placeholder="e.g., ABC1234"
               />
               <Select
                 value={state}
                 onChange={(e) => setState(e.target.value)}
+                onFocus={() => {
+                  setVin("");
+                }}  
                 disabled={loading}
                 displayEmpty
               >
