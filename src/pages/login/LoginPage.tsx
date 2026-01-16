@@ -109,19 +109,21 @@ const LoginPage = () => {
             <TextField
               fullWidth
               label="Email Address"
+              name="username"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               margin="normal"
               required
               disabled={loading}
-              autoComplete="email"
+              autoComplete="username"
               autoFocus
             />
             <TextField
               fullWidth
               label="Password"
               type="password"
+              name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               margin="normal"
