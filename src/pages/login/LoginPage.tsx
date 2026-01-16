@@ -13,8 +13,6 @@ import { Car } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { login, clearError } from "../../store/authSlice";
-// import { mockLogin } from "../../services/mockApi";
-import { loginApi, setAuthToken } from "../../services/api";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -105,18 +103,19 @@ const LoginPage = () => {
               {error}
             </Alert>
           )}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} method="post">
             <TextField
               fullWidth
               label="Email Address"
-              name="username"
+              name="email"
+              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               margin="normal"
               required
               disabled={loading}
-              autoComplete="username"
+              autoComplete="email"
               autoFocus
             />
             <TextField
@@ -124,6 +123,7 @@ const LoginPage = () => {
               label="Password"
               type="password"
               name="password"
+              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               margin="normal"
